@@ -1,5 +1,7 @@
 from PIL import Image
 
+
+
 def get_lsb(int_value):
     return int_value & 1
 
@@ -12,6 +14,8 @@ def string_to_binary_array(input_string):
         ascii_value = ord(char)
         binary_array.extend([int(bit) for bit in bin(ascii_value)[2:].zfill(8)])
     return binary_array
+
+
 
 filename = 'starr_bears.jpg'
 filepath = f"./{filename}"
@@ -26,21 +30,28 @@ mode = orig_image.mode
 # print(f"Mode: {mode}")
 
 
+
 orig_pixel_map = orig_image.load()
 new_image = Image.new(mode, (width, height))
 new_pixel_map = new_image.load()
+
 for x in range(width):
     for y in range(height):        
         new_pixel_map[x, y] = orig_pixel_map[x, y]
+
+
+
 
 user_input = input("Enter a string to be encrypted: ") # Collect a string from the user
 message_length = len(user_input)
 print("You entered:", user_input) # Print the collected string
 input_binary = string_to_binary_array(user_input)
 
+
 # print("String:", user_input)
 # print("Binary Array:", input_binary)
 # print("\nPixel data:")
+
 
 binary_input_length = len(user_input)
 binary_input_index = 0
@@ -49,6 +60,8 @@ new_blue = 0
 new_green = 0
 new_pixel = (0, 0, 0)
 all_input_processed = False
+
+
 
 for x in range(width):
     for y in range(height): 
@@ -102,6 +115,9 @@ for x in range(width):
             new_pixel_map[x, y] = new_pixel
             all_input_processed = True
             break
+        else: 
+            new_pixel = (new_red, new_green, new_blue)
+            new_pixel_map[x, y] = new_pixel
     
     if all_input_processed: 
             break
